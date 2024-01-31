@@ -1,0 +1,64 @@
+---
+# tasks file for ec2-server
+
+# Include variable file so that main.yml knows where to call the values of its variable
+- include_vars: "vars/main.yml"
+  tags: create
+
+# Create ec2
+- name: Create one ec2 instance and attach to the public subnet
+  amazon.aws.ec2_instance:
+    name: "{{ name }}"
+    region: "{{ region }}"
+    vpc_subnet_id: "{{ aws_public_subnet_info.subnet.id }}"
+    instance_type: "{{ instance_type }}"
+    security_group: "{{ aws_security_group_info.group_id }}"
+    key_name: care-key
+    image_id: "{{ ami_facts.stdout }}"
+    #count: "{{ count }}"
+    wait: yes
+    wait_timeout: 240
+    network:
+      assign_public_ip: true
+  register: aws_ec2_info
+
+#########################################################################################################################################
+#########################################################################################################################################
+
+# Get the info of the running instance
+- name: Get EC2 instance info
+  amazon.aws.ec2_instance_info:
+    filters:
+      instance-state-name: running
+      tag:Name: "{{ name }}"
+    region: "{{ region }}"
+  register: ec2_info
+
+
+##########################################################################################################################################
+##########################################################################################################################################
+
+# Store the public Ip
+- name: Set fact with Public IP
+  set_fact:
+    public_ip: "{{ ec2_info.instances[0].public_ip_address }}"
+  when: ec2_info.instances | length > 0
+
+
+#############################################################################################################################################
+#############################################################################################################################################
+
+# Print the value of the Ip address
+- name: Print public IP address
+  debug:
+    var: public_ip
+    
+
+#########################################################################################################################################
+#########################################################################################################################################
+
+# Add public ip to host group
+- name: Add new Instance to the Host Group
+  add_host:
+    name: "{{ public_ip }}"
+    groups: apache-server 

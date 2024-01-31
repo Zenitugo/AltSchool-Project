@@ -1,0 +1,7 @@
+---
+# vars file for subnets
+region: eu-west-1
+cidr_a: 10.10.1.0/24
+cidr_b: 10.10.2.0/24
+az_1: eu-west-1a
+az_2: eu-west-1b

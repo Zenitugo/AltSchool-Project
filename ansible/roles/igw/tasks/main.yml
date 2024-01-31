@@ -1,0 +1,15 @@
+---
+# tasks file for igw
+
+# Include variable file so that main.yml knows where to call the values of its variable
+- include_vars: "vars/main.yml"
+  tags: create
+
+# Create internet gateway and attach to VPC
+- name: Create internet gateway
+  amazon.aws.ec2_vpc_igw:
+    region: "{{ region }}"
+    vpc_id: "{{ aws_vpc_info.vpc.id }}"
+    tags:
+      Name: my-igw
+  register: aws_igw_info

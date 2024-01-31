@@ -1,0 +1,7 @@
+---
+# vars file for key-pair
+
+region: eu-west-1
+key_name: care-key
+
+

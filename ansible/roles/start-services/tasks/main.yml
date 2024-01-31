@@ -1,0 +1,10 @@
+---
+# tasks file for start-services
+
+# Start apache2 service
+- name: Start Apache2 service
+  ansible.builtin.service:
+    name: httpd
+    state: started
+    enabled: yes
+  tags: Start

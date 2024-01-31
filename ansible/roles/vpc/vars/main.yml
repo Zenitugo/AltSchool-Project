@@ -1,0 +1,4 @@
+---
+# vars file for vpc
+cidr_block: 10.10.0.0/16
+region: eu-west-1

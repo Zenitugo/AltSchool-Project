@@ -1,0 +1,25 @@
+---
+# tasks file for security-group
+
+# Include variable file so that main.yml knows where to call the values of its variable
+- include_vars: "vars/main.yml"
+  tags: create
+
+# Create security group
+- name: Create security group for the ec2 instance
+  amazon.aws.ec2_security_group:
+    name: ec2-sg
+    description: security group for my ec2
+    region: "{{ region }}"
+    vpc_id: "{{ aws_vpc_info.vpc.id}}"
+    rules:
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 80
+        to_port: 80
+        cidr_ip: 0.0.0.0/0
+    state: present
+  register: aws_security_group_info

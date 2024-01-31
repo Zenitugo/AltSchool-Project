@@ -1,0 +1,31 @@
+---
+# tasks file for subnets
+
+# Include variable file so that main.yml knows where to call the values of its variable
+- include_vars: "vars/main.yml"
+  tags: create
+
+# Create Public Subnets 
+- name: Create public subnet
+  amazon.aws.ec2_vpc_subnet:
+    region: "{{ region }}"
+    cidr: "{{ cidr_a }}"
+    az: "{{ az_1 }}"
+    vpc_id: "{{ aws_vpc_info.vpc.id }}"
+    map_public: true
+    tags:
+      Name: public-subnet
+  register: aws_public_subnet_info
+
+
+  # Create Private Subnets
+- name: Create private subnet
+  amazon.aws.ec2_vpc_subnet:
+    region: "{{ region }}"
+    cidr: "{{ cidr_b }}"
+    az: "{{ az_2 }}"
+    vpc_id: "{{ aws_vpc_info.vpc.id }}"
+    map_public: false
+    tags:
+      Name: private-subnet
+  register: aws_private_subnet_info

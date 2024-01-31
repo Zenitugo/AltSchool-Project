@@ -1,0 +1,21 @@
+---
+# tasks file for route-tables
+
+
+# Include variable file so that main.yml knows where to call the values of its variable
+- include_vars: "vars/main.yml"
+  tags: create
+
+# Create route tables for subnets
+- name: Public subnet route table
+  amazon.aws.ec2_vpc_route_table:
+    region: "{{ region }}"
+    vpc_id: "{{ aws_vpc_info.vpc.id }}"
+    tags:
+      Name: public-rt
+    subnets:
+      - "{{ aws_public_subnet_info.subnet.id}}"
+    routes:
+      - dest: 0.0.0.0/0
+        gateway_id: "{{ aws_igw_info.gateway_id}}"
+  register: aws_public_route_table

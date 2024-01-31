@@ -1,0 +1,8 @@
+---
+# tasks file for install-pkg
+# Install apache2 in ec2 server
+- name: Install Apache2
+  ansible.builtin.yum:
+    name: httpd
+    state: present
+  tags: Install
