@@ -45,8 +45,6 @@ The roles folder was used to modularise the task so that the file can be reusabl
 - start-services: To start and enable apache2
 
 
-Because this task is simple, the sub-directory used in each role was only the `tasks` and `var`.
-
 The `main.yml` in the `var` directory holds the variables for each role while the `main.yml` in the `tasks` directory holds the pieces of code needed to create each element of the infrastructure.
 
 Another variable type was also used and captured with the `Register` keyword. This made it possible to reference roles in other roles. e.g referencing vpc-id in the subnets or internet gateway role.
@@ -55,6 +53,9 @@ Another variable type was also used and captured with the `Register` keyword. Th
 The main playbook `role.yml` contains two plays which are:
 - To create VPC and EC2 
 - To install and start a web server.
+
+## NOTE:
+**Because this task is simple, the sub-directory used in each role was only the `tasks` and `var`. Ignore all other folders**
 
 
 ## COMMANDS USED FOR EXECUTION
