@@ -4,7 +4,7 @@
 
 # Include variable file so that main.yml knows where to call the values of its variable
 - include_vars: "vars/main.yml"
-  tags: create
+  tags: create-rt
 
 # Create route tables for subnets
 - name: Public subnet route table

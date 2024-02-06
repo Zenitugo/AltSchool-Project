@@ -6,4 +6,4 @@
     name: "*"
     state: latest
 
-  tags: update
+  tags: update-pkg

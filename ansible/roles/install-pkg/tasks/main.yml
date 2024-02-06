@@ -5,4 +5,4 @@
   ansible.builtin.yum:
     name: httpd
     state: present
-  tags: Install
+  tags: Install-apache2

@@ -7,4 +7,4 @@
     name: httpd
     state: started
     enabled: yes
-  tags: Start
+  tags: Start-apache2

@@ -4,7 +4,7 @@
 
 # Include variable file so that main.yml knows where to call the values of its variable
 - include_vars: "vars/main.yml"
-  tags: create
+  tags: create-key-pair
 
 # Create key Pair
 - name: Create key-pair for ec2
